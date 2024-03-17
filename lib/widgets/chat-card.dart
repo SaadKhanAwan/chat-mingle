@@ -59,11 +59,15 @@ class _ChatCardState extends State<ChatCard> {
                   title: Text(messages != null
                       ? widget.user.name.toString()
                       : widget.user.about.toString()),
-                  subtitle: Text(messages != null
-                      ? messages!.type == Type.image
-                          ? "Photo"
-                          : messages!.msg.toString()
-                      : widget.user.about.toString()),
+                  subtitle: Text(
+                    messages != null
+                        ? messages!.type == Type.image
+                            ? "Photo"
+                            : messages!.msg.toString()
+                        : widget.user.about.toString(),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
                   trailing: messages == null
                       ? null
                       // if message is sent once and is not open show green dot
