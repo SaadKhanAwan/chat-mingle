@@ -106,22 +106,25 @@ class APIs {
         .set(chatuser.toJson());
   }
 
-// for fetching id of known users from firestore
   static Stream<QuerySnapshot<Map<String, dynamic>>> getMyUserid() {
     return firestore
         .collection("users")
         .doc(user.uid)
-        .collection("my_users")
+        .collection("my_user")
         .snapshots();
   }
 
-  // for fetching all users from firestore except your self
   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUser(
       List<String> userIds) {
-    return firestore
-        .collection("users")
-        .where("id", whereIn: userIds)
-        .snapshots();
+    if (userIds.isNotEmpty) {
+      return firestore
+          .collection("users")
+          .where("id", whereIn: userIds)
+          .snapshots();
+    } else {
+      debugPrint("User IDs list is empty");
+      return const Stream.empty();
+    }
   }
 
   // for adding a user to my user when first message is send
@@ -134,7 +137,7 @@ class APIs {
     await firestore
         .collection('users')
         .doc(chatuser.id)
-        .collection('my_users')
+        .collection('my_user')
         .doc(user.uid)
         .set({}).then((value) => sendMessage(chatuser, msg, type));
   }

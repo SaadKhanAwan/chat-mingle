@@ -91,8 +91,8 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             //if data is loading
-            case ConnectionState.waiting:
             case ConnectionState.none:
+            case ConnectionState.waiting:
               return const Center(child: CircularProgressIndicator());
 
             //if some or all data is loaded then show it
