@@ -29,7 +29,7 @@ class APIs {
   static Future sendPushnotification(Chatuser chatuser, String msg) async {
     try {
       final body = {
-        "to": chatuser.pushToken,
+        "to": me.name,
         "notification": {"title": chatuser.name, "body": msg}
       };
       await post(
